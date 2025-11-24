@@ -1,6 +1,4 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: ${env:SERVERLESS_ORG}
-# "service" is the name of this project. This will also be added to your AWS resource names.
 service: notes-api
 frameworkVersion: "4"
 
@@ -9,14 +7,84 @@ provider:
   runtime: nodejs20.x
   iam:
     role: ${env:IAM_ROLE}
-  # Uncomment to easily set up a custom domain. Read the docs for more details:
-  # https://www.serverless.com/framework/docs/providers/aws/guide/domains
-  # domain: api.example.com
+  region: eu-north-1
+
+build:
+  external: 
+     - aws-sdk
 
 functions:
-  hello:
-    handler: handler.hello
+  getNotes:
+    handler: functions/notes/getNotes/index.handler
     events:
       - httpApi:
-          path: /
+          path: /notes
           method: get
+
+  postNotes:
+    handler: functions/notes/postNotes/index.handler
+    events:
+      - httpApi:
+          path: /notes
+          method: post
+
+  putNotes:
+    handler: functions/notes/putNotes/index.handler
+    events:
+      - httpApi:
+          path: /notes
+          method: put
+
+  deleteNotes:
+    handler: functions/notes/deleteNotes/index.handler
+    events:
+      - httpApi:
+          path: /notes/{id}
+          method: delete
+
+  signUp:
+    handler: functions/user/signUp/index.handler
+    events:
+      - httpApi:
+          path: /user/signUp
+          method: post          
+
+  logIn:
+    handler: functions/user/logIn/index.handler
+    events:
+      - httpApi:
+          path: /user/logIn
+          method: post         
+
+  restoreNotes:
+    handler: functions/notes/restoreNotes/index.handler
+    events:
+      - httpApi:
+          path: /notes/{id}/restore
+          method: put         
+
+resources:
+  Resources:
+    notesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: notesTable
+        AttributeDefinitions:
+          - AttributeName: noteId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: noteId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+    userTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: userTable
+        AttributeDefinitions:
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: email
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
