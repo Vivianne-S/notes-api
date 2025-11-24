@@ -1,0 +1,22 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: ${env:SERVERLESS_ORG}
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: notes-api
+frameworkVersion: "4"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  iam:
+    role: ${env:IAM_ROLE}
+  # Uncomment to easily set up a custom domain. Read the docs for more details:
+  # https://www.serverless.com/framework/docs/providers/aws/guide/domains
+  # domain: api.example.com
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
