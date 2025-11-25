@@ -1,0 +1,192 @@
+{
+  "info": {
+    "_postman_id": "8565fcd7-2000-4aab-939d-ca06494e2501",
+    "name": "Notes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Signup",
+      "id": "e9c539e0-efa4-43a2-b9d3-a340a6d4e4e8",
+      "request": {
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@test.com\",\n  \"password\": \"1234\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://8y4k55v1g4.execute-api.eu-north-1.amazonaws.com/api/user/signup",
+          "protocol": "https",
+          "host": [
+            "8y4k55v1g4",
+            "execute-api",
+            "eu-north-1",
+            "amazonaws",
+            "com"
+          ],
+          "path": [
+            "api",
+            "user",
+            "signup"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "id": "e1ac9ae3-16fd-44e9-8aae-0331a4ce0402",
+      "request": {
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@test.com\",\n  \"password\": \"1234\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://https:/8y4k55v1g4.execute-api.eu-north-1.amazonaws.com//api/user/signup",
+          "protocol": "https",
+          "host": [
+            "https"
+          ],
+          "port": "",
+          "path": [
+            "8y4k55v1g4.execute-api.eu-north-1.amazonaws.com",
+            "",
+            "api",
+            "user",
+            "signup"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Notes",
+      "id": "a95fe600-b9e9-4665-8161-658d7219caa9",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzZjZiYzI1NC0yMmNhLTRjM2EtOTA5Yi0zNzY4N2YwNzE2M2IiLCJpYXQiOjE3NjM4MTU0NjMsImV4cCI6MTc2MzgyMjY2M30.QkDBeBMrjNLq-v0D5g84JMfOevUizbnkHxG0EXcO2t0",
+            "type": "text"
+          },
+          {
+            "key": "",
+            "value": "",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": ""
+        }
+      }
+    },
+    {
+      "name": "Create Note",
+      "id": "70e85300-80dc-41b6-a0c3-e5fdbc8f8536",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzZjZiYzI1NC0yMmNhLTRjM2EtOTA5Yi0zNzY4N2YwNzE2M2IiLCJpYXQiOjE3NjM4MTU0NjMsImV4cCI6MTc2MzgyMjY2M30.QkDBeBMrjNLq-v0D5g84JMfOevUizbnkHxG0EXcO2t0",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"My note\",\n  \"text\": \"Some text\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": ""
+        }
+      }
+    },
+    {
+      "name": "Update Note",
+      "id": "12850ba1-089a-44a3-aabf-ab519e07b40b",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzZjZiYzI1NC0yMmNhLTRjM2EtOTA5Yi0zNzY4N2YwNzE2M2IiLCJpYXQiOjE3NjM4MTU0NjMsImV4cCI6MTc2MzgyMjY2M30.QkDBeBMrjNLq-v0D5g84JMfOevUizbnkHxG0EXcO2t0",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"noteId\": \"xxxx\",\n  \"title\": \"Updated title\",\n  \"text\": \"Updated text\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": ""
+        }
+      }
+    },
+    {
+      "name": "Delete Note",
+      "id": "749f574b-d46e-45ce-a611-1a44c2cdfc7f",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzZjZiYzI1NC0yMmNhLTRjM2EtOTA5Yi0zNzY4N2YwNzE2M2IiLCJpYXQiOjE3NjM4MTU0NjMsImV4cCI6MTc2MzgyMjY2M30.QkDBeBMrjNLq-v0D5g84JMfOevUizbnkHxG0EXcO2t0",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"noteId\": \"xxxx\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": ""
+        }
+      }
+    },
+    {
+      "name": "Restore Note",
+      "id": "bfda5361-ae2d-4a20-b38e-671cab822f5b",
+      "request": {
+        "method": "PUT",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"noteId\": \"xxxx\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": ""
+        }
+      }
+    }
+  ]
+}
