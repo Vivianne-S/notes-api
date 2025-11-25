@@ -35,7 +35,7 @@ async function login(email, password) {
     return { success: false, message: "Incorrect email or password" };
 
   const token = jwt.sign({ id: user.userId, email: user.email }, "aabbcc", {
-    expiresIn: 3600,
+   // expiresIn: 3600,
   });
 
   return { success: true, token: token };
