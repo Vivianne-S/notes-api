@@ -27,6 +27,7 @@ async function postNotes(userId, title, text) {
           title: title.substring(0, 50),
           text: text.substring(0, 300),
           createdAt: timestamp,
+          isDeleted: false
         },
       })
       .promise();

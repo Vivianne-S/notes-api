@@ -21,7 +21,8 @@ async function updateNote(noteId, userId, title, text) {
         Key: { noteId: noteId },
         UpdateExpression:
           "SET #title = :title, #text = :text, #modifiedAt = :modifiedAt",
-        ConditionExpression: "userId = :userId",
+        ConditionExpression: 
+          "userId = :userId AND isDeleted = :falseVal",
         ExpressionAttributeNames: {
           "#title": "title",
           "#text": "text",
@@ -32,13 +33,23 @@ async function updateNote(noteId, userId, title, text) {
           ":text": text.substring(0, 300),
           ":modifiedAt": timestamp,
           ":userId": userId,
+          ":falseVal": false      // ⬅ Lagt till: får inte uppdatera deleted notes
         },
       })
       .promise();
 
     return { success: true, message: "Note updated", modifiedAt: timestamp };
+
   } catch (error) {
     console.log("Update error:", error);
+
+    if (error.code === "ConditionalCheckFailedException") {
+      return {
+        success: false,
+        message: "Not found, deleted, or you don't have permission",
+      };
+    }
+
     return { success: false, message: "Could not update note" };
   }
 }
@@ -60,8 +71,23 @@ const handler = async (event) => {
       });
     }
 
+    if (!title?.trim()) {
+      return sendResponse(400, {
+        success: false,
+        message: "Title is required",
+      });
+    }
+
+    if (!text?.trim()) {
+      return sendResponse(400, {
+        success: false,
+        message: "Text is required",
+      });
+    }
+
     const result = await updateNote(noteId, userId, title, text);
     return sendResponse(result.success ? 200 : 500, result);
+
   } catch (error) {
     console.log("Handler error:", error);
     return sendResponse(500, { success: false, message: "Server error" });

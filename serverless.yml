@@ -5,13 +5,13 @@ frameworkVersion: "4"
 provider:
   name: aws
   runtime: nodejs20.x
+  region: eu-north-1
   iam:
     role: ${env:IAM_ROLE}
-  region: eu-north-1
 
 build:
-  external: 
-     - aws-sdk
+  external:
+    - aws-sdk
 
 functions:
   getNotes:
@@ -47,21 +47,28 @@ functions:
     events:
       - httpApi:
           path: /user/signUp
-          method: post          
+          method: post
 
   logIn:
     handler: functions/user/logIn/index.handler
     events:
       - httpApi:
           path: /user/logIn
-          method: post         
+          method: post
 
   restoreNotes:
     handler: functions/notes/restoreNotes/index.handler
     events:
       - httpApi:
           path: /notes/{id}/restore
-          method: put         
+          method: put
+
+  getDeletedNotes:
+    handler: functions/notes/getDeletedNotes/index.handler
+    events:
+      - httpApi:
+          path: /notes/deleted
+          method: get
 
 resources:
   Resources:

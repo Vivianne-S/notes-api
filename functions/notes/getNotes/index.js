@@ -10,19 +10,21 @@ const getNotes = async (event, context) => {
     if (event?.error && event?.error === '401')
       return sendResponse(401, {success: false , message: 'Invalid token' });
 
-    const {Items} = await db.scan({
+    const { Items } = await db.scan({
       TableName: 'notesTable', 
-      FilterExpression: "attribute_exists(#noteId)",
+      FilterExpression: "attribute_exists(#noteId) AND isDeleted = :falseVal",
       ExpressionAttributeNames: {
-        "#noteId" : "noteId"
+        "#noteId": "noteId"
+      },
+      ExpressionAttributeValues: {
+        ":falseVal": false
       }
     }).promise();
 
-    return sendResponse(200, {success : true, notes: Items});
+    return sendResponse(200, { success: true, notes: Items });
 }
 
 const handler = middy(getNotes)
     .use(validateToken)
-
 
 module.exports = { handler };

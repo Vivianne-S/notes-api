@@ -7,27 +7,30 @@ const { validateToken } = require("../../../middleware/auth");
 async function deleteNote(noteId, userId) {
   try {
     await db
-      .delete({
+      .update({
         TableName: "notesTable",
         Key: { noteId: noteId },
+        UpdateExpression: "SET isDeleted = :deleted",
         ConditionExpression: "userId = :userId",
         ExpressionAttributeValues: {
+          ":deleted": true,
           ":userId": userId,
         },
       })
       .promise();
 
-    return { success: true, message: "Note deleted" };
-  } catch (error) {
-    if (error.code === "ConditionalCheckFailedException") {
-      return {
-        success: false,
-        message: "Note not found or you don't have permission",
-      };
+
+      return { success: true, message: "Note moved to deleted notes" };
+    } catch (error) {
+      if (error.code === "ConditionalCheckFailedException") {
+        return {
+          success: false,
+          message: "Note not found or you don't have permission",
+        };
+      }
+      return { success: false, message: "Could not delete note" };
     }
-    return { success: false, message: "Could not delete note" };
   }
-}
 
 const handler = async (event) => {
   try {
