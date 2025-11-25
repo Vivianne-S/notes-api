@@ -28,11 +28,11 @@ functions:
           path: /notes
           method: post
 
-  putNotes:
-    handler: functions/notes/putNotes/index.handler
+  updateNotes:
+    handler: functions/notes/updateNotes/index.handler
     events:
       - httpApi:
-          path: /notes
+          path: /notes/{id}
           method: put
 
   deleteNotes:
